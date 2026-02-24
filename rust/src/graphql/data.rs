@@ -80,6 +80,11 @@ pub struct Event {
     pub dkg_account: i32,
 }
 
+#[derive(Clone, GraphQLObject, Default)]
+pub struct ValidatedAddress {
+    pub success: bool,
+}
+
 #[derive(Clone, GraphQLEnum, Default)]
 pub enum EventType {
     #[default] Block,

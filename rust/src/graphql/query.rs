@@ -1,6 +1,7 @@
 use anyhow::{Error, Result};
 use dataloader::cached::Loader;
 use sqlx::SqlitePool;
+use zcash_address::ZcashAddress;
 use std::collections::HashMap;
 use std::sync::Arc;
 use zcash_keys::address::UnifiedAddress;
@@ -10,7 +11,7 @@ use zcash_keys::keys::UnifiedFullViewingKey;
 use crate::api::coin::{Coin, Network};
 use crate::api::pay::PcztPackage;
 use crate::db::{calculate_balance, get_sync_height};
-use crate::graphql::data::{Account, Addresses, Balance, Note, Transaction, UnconfirmedTx};
+use crate::graphql::data::{Account, Addresses, Balance, Note, Transaction, UnconfirmedTx, ValidatedAddress};
 use crate::graphql::mutation::MEMPOOL;
 use crate::graphql::mutation::{Output, Payment, UnsignedTx};
 use crate::graphql::Context;
@@ -241,6 +242,14 @@ impl Query {
         let mut client = context.coin.client().await?;
         let height = client.latest_height().await?;
         let result = client.post_transaction(height, &tx).await?;
+        Ok(result)
+    }
+
+    async fn validate_address(addr_string: String, _context: &Context) -> FieldResult<ValidatedAddress> {                        
+        let result = ValidatedAddress {
+            success: addr_string.parse::<ZcashAddress>().is_ok(),
+        };
+        
         Ok(result)
     }
 }
