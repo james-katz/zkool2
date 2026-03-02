@@ -19,6 +19,7 @@ import 'api/raptor.dart';
 import 'api/sweep.dart';
 import 'api/sync.dart';
 import 'api/transaction.dart';
+import 'api/vote.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'frb_generated.dart';
@@ -35,6 +36,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
     required super.portManager,
   });
 
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ContextPtr => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext;
+
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_MempoolPtr => wire
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMempool;
 
@@ -47,6 +51,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw);
+
+  @protected
+  Context
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+          dynamic raw);
 
   @protected
   Mempool
@@ -74,8 +83,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           dynamic raw);
 
   @protected
+  Context
+      dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+          dynamic raw);
+
+  @protected
   TransparentScanner
       dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTransparentScanner(
+          dynamic raw);
+
+  @protected
+  Context
+      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
           dynamic raw);
 
   @protected
@@ -116,6 +135,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   RustStreamSink<SyncProgress> dco_decode_StreamSink_sync_progress_Sse(
       dynamic raw);
+
+  @protected
+  RustStreamSink<int> dco_decode_StreamSink_u_32_Sse(dynamic raw);
 
   @protected
   String dco_decode_String(dynamic raw);
@@ -181,10 +203,19 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   Category dco_decode_category(dynamic raw);
 
   @protected
+  ChoiceProp dco_decode_choice_prop(dynamic raw);
+
+  @protected
   Coin dco_decode_coin(dynamic raw);
 
   @protected
   DKGStatus dco_decode_dkg_status(dynamic raw);
+
+  @protected
+  ElectionId dco_decode_election_id(dynamic raw);
+
+  @protected
+  ElectionPropsPub dco_decode_election_props_pub(dynamic raw);
 
   @protected
   double dco_decode_f_64(dynamic raw);
@@ -209,6 +240,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   List<Category> dco_decode_list_category(dynamic raw);
+
+  @protected
+  List<ChoiceProp> dco_decode_list_choice_prop(dynamic raw);
 
   @protected
   List<Folder> dco_decode_list_folder(dynamic raw);
@@ -236,6 +270,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   Uint64List dco_decode_list_prim_usize_strict(dynamic raw);
+
+  @protected
+  List<QuestionPropPub> dco_decode_list_question_prop_pub(dynamic raw);
 
   @protected
   List<Recipient> dco_decode_list_recipient(dynamic raw);
@@ -327,6 +364,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   PoolBalance dco_decode_pool_balance(dynamic raw);
 
   @protected
+  QuestionPropPub dco_decode_question_prop_pub(dynamic raw);
+
+  @protected
   RaptorQParams dco_decode_raptor_q_params(dynamic raw);
 
   @protected
@@ -414,6 +454,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer);
 
   @protected
+  Context
+      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+          SseDeserializer deserializer);
+
+  @protected
   Mempool
       sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMempool(
           SseDeserializer deserializer);
@@ -439,8 +484,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
           SseDeserializer deserializer);
 
   @protected
+  Context
+      sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+          SseDeserializer deserializer);
+
+  @protected
   TransparentScanner
       sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTransparentScanner(
+          SseDeserializer deserializer);
+
+  @protected
+  Context
+      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
           SseDeserializer deserializer);
 
   @protected
@@ -484,6 +539,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RustStreamSink<SyncProgress> sse_decode_StreamSink_sync_progress_Sse(
+      SseDeserializer deserializer);
+
+  @protected
+  RustStreamSink<int> sse_decode_StreamSink_u_32_Sse(
       SseDeserializer deserializer);
 
   @protected
@@ -554,10 +613,19 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   Category sse_decode_category(SseDeserializer deserializer);
 
   @protected
+  ChoiceProp sse_decode_choice_prop(SseDeserializer deserializer);
+
+  @protected
   Coin sse_decode_coin(SseDeserializer deserializer);
 
   @protected
   DKGStatus sse_decode_dkg_status(SseDeserializer deserializer);
+
+  @protected
+  ElectionId sse_decode_election_id(SseDeserializer deserializer);
+
+  @protected
+  ElectionPropsPub sse_decode_election_props_pub(SseDeserializer deserializer);
 
   @protected
   double sse_decode_f_64(SseDeserializer deserializer);
@@ -582,6 +650,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   List<Category> sse_decode_list_category(SseDeserializer deserializer);
+
+  @protected
+  List<ChoiceProp> sse_decode_list_choice_prop(SseDeserializer deserializer);
 
   @protected
   List<Folder> sse_decode_list_folder(SseDeserializer deserializer);
@@ -610,6 +681,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   Uint64List sse_decode_list_prim_usize_strict(SseDeserializer deserializer);
+
+  @protected
+  List<QuestionPropPub> sse_decode_list_question_prop_pub(
+      SseDeserializer deserializer);
 
   @protected
   List<Recipient> sse_decode_list_recipient(SseDeserializer deserializer);
@@ -702,6 +777,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   PoolBalance sse_decode_pool_balance(SseDeserializer deserializer);
+
+  @protected
+  QuestionPropPub sse_decode_question_prop_pub(SseDeserializer deserializer);
 
   @protected
   RaptorQParams sse_decode_raptor_q_params(SseDeserializer deserializer);
@@ -798,6 +876,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
+      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+          Context self, SseSerializer serializer);
+
+  @protected
+  void
       sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMempool(
           Mempool self, SseSerializer serializer);
 
@@ -823,8 +906,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
+      sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+          Context self, SseSerializer serializer);
+
+  @protected
+  void
       sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTransparentScanner(
           TransparentScanner self, SseSerializer serializer);
+
+  @protected
+  void
+      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+          Context self, SseSerializer serializer);
 
   @protected
   void
@@ -868,6 +961,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_StreamSink_sync_progress_Sse(
       RustStreamSink<SyncProgress> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_StreamSink_u_32_Sse(
+      RustStreamSink<int> self, SseSerializer serializer);
 
   @protected
   void sse_encode_String(String self, SseSerializer serializer);
@@ -940,10 +1037,20 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_category(Category self, SseSerializer serializer);
 
   @protected
+  void sse_encode_choice_prop(ChoiceProp self, SseSerializer serializer);
+
+  @protected
   void sse_encode_coin(Coin self, SseSerializer serializer);
 
   @protected
   void sse_encode_dkg_status(DKGStatus self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_election_id(ElectionId self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_election_props_pub(
+      ElectionPropsPub self, SseSerializer serializer);
 
   @protected
   void sse_encode_f_64(double self, SseSerializer serializer);
@@ -969,6 +1076,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_list_category(List<Category> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_choice_prop(
+      List<ChoiceProp> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_folder(List<Folder> self, SseSerializer serializer);
@@ -1002,6 +1113,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_list_prim_usize_strict(
       Uint64List self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_question_prop_pub(
+      List<QuestionPropPub> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_recipient(
@@ -1102,6 +1217,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_pool_balance(PoolBalance self, SseSerializer serializer);
 
   @protected
+  void sse_encode_question_prop_pub(
+      QuestionPropPub self, SseSerializer serializer);
+
+  @protected
   void sse_encode_raptor_q_params(RaptorQParams self, SseSerializer serializer);
 
   @protected
@@ -1198,6 +1317,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 class RustLibWire implements BaseWire {
   RustLibWire.fromExternalLibrary(ExternalLibrary lib);
 
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+          int ptr) =>
+      wasmModule
+          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+              ptr);
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+          int ptr) =>
+      wasmModule
+          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+              ptr);
+
   void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMempool(
           int ptr) =>
       wasmModule
@@ -1241,6 +1372,14 @@ external RustLibWasmModule get wasmModule;
 @JS()
 @anonymous
 extension type RustLibWasmModule._(JSObject _) implements JSObject {
+  external void
+      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+          int ptr);
+
+  external void
+      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContext(
+          int ptr);
+
   external void
       rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMempool(
           int ptr);

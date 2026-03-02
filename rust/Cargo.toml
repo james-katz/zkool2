@@ -79,13 +79,14 @@ group = "0.13"
 halo2_gadgets = "0.3"
 halo2_proofs = "0.3"
 jubjub = "0.10"
-prost = "0.13.5"
 ripemd = "0.1"
 rustls = {version = "0.23", default-features = false, features = ["ring"]}
 sapling-crypto = "0.5"
 secp256k1 = "0.29"
 sha2 = "0.10"
-tonic = {version = "0.13.0", features = ["tls-webpki-roots"]}
+tonic = {version = "0.14.0", features = ["tls-webpki-roots"]}
+tonic-prost = "0.14.0"
+prost = "0.14.0"
 zip32 = "0.2"
 
 itertools = "0.14"
@@ -112,6 +113,12 @@ clap = {version = "4.5", optional = true, features = ["derive"]}
 ledger-transport = {version = "0.10.0", optional = true}
 ledger-transport-zemu = {version = "0.10.0", optional = true}
 
+[dependencies.zcvlib]
+# path = "../../zcv/zcvlib"
+git = "https://github.com/hhanh00/zcv"
+rev = "0169edf8dfe5c395011e23df778c878801cb7360"
+optional = true
+
 [target.'cfg(target_os = "macos")'.dependencies]
 hidapi = {version = "2.6.3", optional = true}
 
@@ -129,17 +136,17 @@ chrono = "0.4"
 rand = "0.6"
 
 [build-dependencies]
-tonic-build = "0.13"
+tonic-prost-build = "0.14"
 
 [features]
 default = ["flutter"]
-flutter = ["flutter_rust_bridge"]
+flutter = ["flutter_rust_bridge", "zcvlib"]
 graphql = ["juniper", "juniper_warp", "juniper_graphql_ws", "dataloader", "warp", "jsonwebtoken", "bigdecimal", "chrono", "figment", "clap"]
 ledger = ["hidapi", "ledger-transport"]
 zemu = ["ledger", "ledger-transport-zemu"]
 
 [patch.crates-io]
-orchard = {git = "https://github.com/hhanh00/orchard.git", rev = "c06fec6d69c7e6d9619273d8217bf600832a1e66"}
+orchard = {git = "https://github.com/hhanh00/orchard.git", rev = "3c5c0bbcb4d268921bd339f7fd84ca90685dda59"}
 
 zcash_note_encryption = {git = "https://github.com/zcash/zcash_note_encryption.git", rev = "ede44ea608e667c78309c598fbf4d70f69c15c29"}
 

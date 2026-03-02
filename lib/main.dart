@@ -7,6 +7,7 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:toastification/toastification.dart';
 import 'package:zkool/router.dart';
 import 'package:zkool/src/rust/api/network.dart';
+import 'package:zkool/src/rust/api/vote.dart';
 import 'package:zkool/src/rust/frb_generated.dart';
 import 'package:zkool/utils.dart';
 
@@ -28,10 +29,6 @@ Future<void> main() async {
 
   final r = router(disclaimerAccepted, recovery);
 
-  // Future<AppSettings> initApp(WidgetRef ref, AppSettings s) async {
-  //   appWatcher = LifecycleWatcher(ref);
-  //   return s;
-  // }
   runApp(
     ProviderScope(
       child: ToastificationWrapper(
